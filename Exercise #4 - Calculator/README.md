@@ -1,4 +1,4 @@
-## 🖩 &nbsp;Exercise Calculator
+## 🧮 &nbsp;Exercise Calculator
 
   Create a webpage featuring a virtual calculator where the user can perform all operations performed on the calculator. 
   Design all buttons using <div> elements, and assign event handlers through JavaScript.
