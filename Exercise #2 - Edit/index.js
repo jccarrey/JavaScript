@@ -82,7 +82,31 @@ function cancelChanges(myParagraph, textarea, myPcont, originalButton, acceptBut
     cancelButton.remove();
 }
 
+// Función que añade nuevos parrafos
+
+function addParagraphs() {
+    var newParagraph = document.createElement('p');
+    newParagraph.classList.add('parrafoEditable');
+    newParagraph.textContent = 'Nuevo párrafo';
+    
+    var paragraphId = 'p' + (document.getElementsByClassName('parrafoEditable').length + 1);
+
+    var editButton = createButton('EDIT', 'btn-edit-' + (document.getElementsByClassName('parrafoEditable').length + 1));
+    
+    editButton.addEventListener('click', function () {
+        convertToTextArea(editButton.id, paragraphId);
+    });
+
+    newParagraph.setAttribute('id', paragraphId);
+    document.body.appendChild(newParagraph);
+    document.body.appendChild(editButton);
+}
+
 addButtons();
+
+var addButton = createButton('Add Paragraph', 'btn-add-paragraph');
+addButton.addEventListener('click', addParagraphs);
+document.body.appendChild(addButton);
 
 document.getElementById('btn1').addEventListener('click', function () {
     convertToTextArea('btn1', 'p1');
