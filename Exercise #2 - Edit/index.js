@@ -2,7 +2,7 @@ import { Edit } from "./modules/edit.js";
 
 let myEdit = new Edit();
 
-addButtons();
+// Función que añade los botones necesarios para editar cada '<p>'
 
 function addButtons() {
     var paragraphs = document.getElementsByClassName('parrafoEditable');
@@ -13,54 +13,48 @@ function addButtons() {
     }
 }
 
-document.getElementById('btn1').addEventListener('click', convertToTextArea1);
-document.getElementById('btn2').addEventListener('click', convertToTextArea2);
+// Función que convierte los '<p>' a '<textarea>'
 
-function convertToTextArea1() {
-    var myButton1 = document.getElementById('btn1');
-    var myP1 = document.getElementById('p1').innerHTML;
+function convertToTextArea(buttonId, paragraphId) {
+    var myButton = document.getElementById(buttonId);
+    var myParagraph = document.getElementById(paragraphId);
+    var myPValue = myParagraph.innerHTML;
     var textarea = document.createElement('textarea');
-    textarea.value = myP1;
-    document.getElementById('p1').replaceWith(textarea);
-    textarea.setAttribute('id', 'text-area1')
-    myButton1.style.display = 'none';
+    textarea.value = myPValue;
+    myParagraph.replaceWith(textarea);
+    textarea.setAttribute('id', 'text-area-' + buttonId.substring(3));
 
-    var cancelButton = document.createElement('button');
-    var acceptButton = document.createElement('button');
+    myButton.style.display = 'none';
 
-    acceptButton.textContent = 'ACCEPT';
-    cancelButton.textContent = 'CANCEL';
-
-    acceptButton.setAttribute('id', 'btn-accept');
-    acceptButton.setAttribute('class', 'btn');
-
-    cancelButton.setAttribute('id', 'btn-cancel');
-    cancelButton.setAttribute('class', 'btn');
+    var cancelButton = createButton('CANCEL', 'btn-cancel-' + buttonId.substring(3));
+    var acceptButton = createButton('ACCEPT', 'btn-accept-' + buttonId.substring(3));
 
     document.body.appendChild(acceptButton);
     document.body.appendChild(cancelButton);
 
-    acceptButton.addEventListener('click', function() {
-        acceptChanges(textarea, myButton1, acceptButton, cancelButton);
+    acceptButton.addEventListener('click', function () {
+        acceptChanges(myParagraph, textarea, myButton, acceptButton, cancelButton);
     });
-    cancelButton.addEventListener('click', cancelChanges());
+
+    cancelButton.addEventListener('click', function () {
+        cancelChanges(myParagraph, textarea, myPValue, myButton, acceptButton, cancelButton);
+    });
 }
 
-function convertToTextArea2() {
-    var myButton2 = document.getElementById('btn2');
-    var myP2 = document.getElementById('p2').innerHTML;
-    var textarea = document.createElement('textarea');
-    textarea.value = myP2;
-    document.getElementById('p2').replaceWith(textarea);
-    textarea.setAttribute('id', 'text-area2')
-    myButton2.style.display = 'none';
+function createButton(text, id) {
+    var button = document.createElement('button');
+    button.textContent = text;
+    button.setAttribute('id', id);
+    return button;
 }
 
-function acceptChanges(textarea, originalButton, acceptButton, cancelButton) {
+// Función que acepta los cambios
+
+function acceptChanges(myParagraph, textarea, originalButton, acceptButton, cancelButton) {
     var textAreaContent = textarea.value;
 
     var newParagraph = document.createElement('p');
-    newParagraph.setAttribute('id', 'p1');
+    newParagraph.setAttribute('id', myParagraph.id);
     newParagraph.textContent = textAreaContent;
 
     textarea.replaceWith(newParagraph);
@@ -71,6 +65,26 @@ function acceptChanges(textarea, originalButton, acceptButton, cancelButton) {
     cancelButton.remove();
 }
 
-function cancelChanges() {
+// Función que cancela los cambios
 
+function cancelChanges(myParagraph, textarea, myPcont, originalButton, acceptButton, cancelButton) {
+    var newParagraph = document.createElement('p');
+    newParagraph.setAttribute('id', myParagraph.id);
+    newParagraph.textContent = myPcont;
+
+    textarea.replaceWith(newParagraph);
+
+    originalButton.style.display = 'block';
+
+    acceptButton.remove();
+    cancelButton.remove();
 }
+
+addButtons();
+
+document.getElementById('btn1').addEventListener('click', function () {
+    convertToTextArea('btn1', 'p1');
+});
+document.getElementById('btn2').addEventListener('click', function () {
+    convertToTextArea('btn2', 'p2');
+});

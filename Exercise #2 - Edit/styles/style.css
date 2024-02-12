@@ -17,15 +17,29 @@ button {
     top: 6%;
     left: 15%;
 }
-#btn-accept {
+
+#btn-accept-1 {
     position: absolute;
-    top: 2%;
+    top: 0%;
+    left: 20%;
+}
+
+#btn-cancel-1 {
+    position: absolute;
+
+    top: 0%;
     left: 25%;
 }
 
-#btn-cancel {
+#btn-accept-2 {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+}
+
+#btn-cancel-2 {
     position: absolute;
 
-    top: 2%;
-    left: 33%;
+    top: 5%;
+    left: 25%;
 }
