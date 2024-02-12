@@ -7,8 +7,8 @@
 
   Summary:
   
-  Create a webpage with an input field for the DNI number and letter.
-  Use the provided array of letters.
-  When the user submits the form, calculate the letter using the formula: letter = letters[dni % 23].
-  Compare the calculated letter with the user-input letter to verify if they correspond.
-  Display a message indicating whether the provided DNI and letter are correct or not.
+  - Create a webpage with an input field for the DNI number and letter.
+  - Use the provided array of letters.
+  - When the user submits the form, calculate the letter using the formula: letter = letters[dni % 23].
+  - Compare the calculated letter with the user-input letter to verify if they correspond.
+  - Display a message indicating whether the provided DNI and letter are correct or not.
