@@ -41,6 +41,8 @@ function convertToTextArea(buttonId, paragraphId) {
     });
 }
 
+// Función que crea los botones 'ACCEPT' y 'CANCEL'
+
 function createButton(text, id) {
     var button = document.createElement('button');
     button.textContent = text;
